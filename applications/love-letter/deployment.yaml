@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: love-letter-deployment
+  labels:
+    app: love-letter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: love-letter
+  template:
+    metadata:
+      labels:
+        app: love-letter
+    spec:
+      containers:
+      - name: love-letter
+        image: chriszhu12/love-letter:latest
+        env:
+          - name: RAILS_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: rails-master-key
+                key: RAILS_MASTER_KEY
+        ports:
+        - containerPort: 3000
