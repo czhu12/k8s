@@ -17,11 +17,14 @@ spec:
       containers:
       - name: love-letter
         image: chriszhu12/love-letter:latest
+        imagePullPolicy: Always
         env:
           - name: RAILS_MASTER_KEY
             valueFrom:
               secretKeyRef:
                 name: rails-master-key
                 key: RAILS_MASTER_KEY
+          - name: DATABASE_URL
+            value: postgres://postgres:postgres@postgres.default.svc.cluster.local/loveletter
         ports:
         - containerPort: 3000
