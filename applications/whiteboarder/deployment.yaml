@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whiteboarder-deployment
+  labels:
+    app: whiteboarder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whiteboarder
+  template:
+    metadata:
+      labels:
+        app: whiteboarder
+    spec:
+      containers:
+      - name: whiteboarder
+        image: chriszhu12/whiteboarder:latest
+        imagePullPolicy: Always
+        env:
+          - name: REDIS_URL
+            value: redis://redis.default.svc.cluster.local
+        ports:
+        - containerPort: 3000

@@ -10,6 +10,7 @@ spec:
   - hosts:
     - blog.chriszhu.me
     - love-letter.chriszhu.me
+    - whiteboarder.chriszhu.me
     secretName: example-tls
   rules:
   - host: blog.chriszhu.me
@@ -30,5 +31,15 @@ spec:
         backend:
           service:
             name: love-letter-service
+            port:
+              number: 80
+  - host: whiteboarder.chriszhu.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: whiteboarder-service
             port:
               number: 80
